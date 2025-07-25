@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BhashaLink - Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #00ccaa;
+            --primary-light: rgba(0, 204, 170, 0.1);
+            --dark-bg: #121212;
+            --darker-bg: #0a0a0a;
+            --card-bg: #1e1e1e;
+            --card-hover: #252525;
+            --light-text: #f5f5f5;
+            --light-gray: #b0b0b0;
+            --medium-gray: #777;
+            --font-main: 'Outfit', sans-serif;
+            --transition: all 0.3s ease;
+            --border-radius: 12px;
+            --border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background: var(--dark-bg);
+            color: var(--light-text);
+            line-height: 1.6;
+            display: flex;
+            min-height: 100vh;
+        }
+
+        
+        .sidebar {
+            width: 240px;
+            background: var(--darker-bg);
+            height: 100vh;
+            position: fixed;
+            left: 0;
+            top: 0;
+            padding: 30px 0;
+            border-right: var(--border);
+        }
+
+        .sidebar-header {
+            padding: 0 25px 25px;
+            border-bottom: var(--border);
+        }
+
+        .sidebar-logo {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--light-text);
+        }
+
+        .sidebar-logo span {
+            color: var(--primary-color);
+        }
+
+        .sidebar-nav {
+            padding: 25px 0;
+        }
+
+        .sidebar-nav ul {
+            list-style: none;
+        }
+
+        .sidebar-nav li {
+            margin-bottom: 5px;
+        }
+
+        .sidebar-nav a {
+            display: flex;
+            align-items: center;
+            padding: 12px 25px;
+            color: var(--light-gray);
+            text-decoration: none;
+            transition: var(--transition);
+            font-size: 0.95rem;
+        }
+
+        .sidebar-nav a:hover,
+        .sidebar-nav a.active {
+            color: var(--light-text);
+            background: var(--primary-light);
+        }
+
+        .sidebar-nav a i {
+            width: 20px;
+            margin-right: 12px;
+            font-size: 1rem;
+            text-align: center;
+        }
+
+        .sidebar-nav a.active {
+            color: var(--primary-color);
+        }
+
+        
+        .main-content {
+            flex: 1;
+            margin-left: 240px;
+            padding: 30px;
+        }
+
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+
+        .dashboard-header h1 {
+            font-size: 1.8rem;
+            font-weight: 500;
+            color: var(--light-text);
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .user-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--primary-light);
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+        }
+
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .service-card {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 25px;
+            transition: var(--transition);
+            border: var(--border);
+        }
+
+        .service-card:hover {
+            background: var(--card-hover);
+            transform: translateY(-3px);
+        }
+
+        .service-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: var(--primary-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+            font-size: 1.2rem;
+        }
+
+        .service-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 12px;
+            font-weight: 500;
+        }
+
+        .service-card p {
+            color: var(--light-gray);
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        .btn-service {
+            display: inline-flex;
+            align-items: center;
+            padding: 8px 18px;
+            background: transparent;
+            border: 1px solid var(--primary-color);
+            border-radius: 20px;
+            color: var(--primary-color);
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: var(--transition);
+        }
+
+        .btn-service:hover {
+            background: var(--primary-color);
+            color: var(--dark-bg);
+        }
+
+        .btn-service i {
+            margin-left: 6px;
+            font-size: 0.8rem;
+        }
+
+        
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+                width: 260px;
+            }
+            .sidebar.active {
+                transform: translateX(0);
+            }
+            .main-content {
+                margin-left: 0;
+                padding: 25px;
+            }
+            .menu-toggle {
+                display: block;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+            .dashboard-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+                margin-bottom: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-logo">Bhasha<span>Link</span></div>
+        </div>
+        <nav class="sidebar-nav">
+            <ul>
+                <li>
+                    <a href="/dashboard" class="active">
+                        <i class="fas fa-home"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/video-upload">
+                        <i class="fas fa-video"></i>
+                        <span>Video Translation</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/interpret">
+                        <i class="fas fa-comments"></i>
+                        <span>Live Interpreter</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="fas fa-exchange-alt"></i>
+                        <span>Two-Way Communication</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="fas fa-cog"></i>
+                        <span>Settings</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Logout</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+
+    
+    <main class="main-content">
+        <header class="dashboard-header">
+            <h1>Welcome back</h1>
+            <div class="user-profile">
+                <div class="user-avatar">JD</div>
+            </div>
+        </header>
+
+        <div class="services-grid">
+            
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-video"></i>
+                </div>
+                <h3>Video Translation</h3>
+                <p>Upload recorded sign language videos for accurate text and speech translations.</p>
+                <a href="/video-upload" class="btn-service">
+                    Get Started
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+
+            
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-comments"></i>
+                </div>
+                <h3>Live Interpreter</h3>
+                <p>Connect with certified interpreters for real-time sign language translation.</p>
+                <a href="/interpret" class="btn-service">
+                    Connect Now
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+
+            
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-exchange-alt"></i>
+                </div>
+                <h3>Two-Way Communication</h3>
+                <p>Facilitate seamless conversations between signers and non-signers.</p>
+                <a href="#" class="btn-service">
+                    Start Session
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        
+        const menuToggle = document.createElement('div');
+        menuToggle.className = 'menu-toggle';
+        menuToggle.innerHTML = '<span></span><span></span><span></span>';
+        document.querySelector('.dashboard-header').prepend(menuToggle);
+
+        const sidebar = document.querySelector('.sidebar');
+
+        menuToggle.addEventListener('click', () => {
+            sidebar.classList.toggle('active');
+            menuToggle.classList.toggle('active');
+        });
+
+        
+        const serviceCards = document.querySelectorAll('.service-card');
+        serviceCards.forEach((card, index) => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(10px)';
+            card.style.transition = `opacity 0.3s ease ${index * 0.1}s, transform 0.3s ease ${index * 0.1}s`;
+            
+            setTimeout(() => {
+                card.style.opacity = '1';
+                card.style.transform = 'translateY(0)';
+            }, 100);
+        });
+    </script>
+</body>
+</html>
