@@ -80,6 +80,12 @@ Then open `http://127.0.0.1:5000` in your browser.
 
 ---
 
+## 🎬 Walkthrough
+
+Explore BhasaLink through the walkthrough youtube video: [Link to be added]
+
+---
+
 ## 📝 License
 
 This project is licensed under the **MIT License** — feel free to fork, use, and innovate.
