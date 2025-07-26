@@ -67,6 +67,11 @@ Then open `http://127.0.0.1:5000` in your browser.
 
 ---
 
+## 🎬 Walkthrough
+
+Explore BhasaLink through the walkthrough youtube video: [Link to be added]
+
+---
 
 ## 👥 Contributors
 
@@ -77,12 +82,6 @@ Then open `http://127.0.0.1:5000` in your browser.
 | **Stuti Kanguo**   | Frontend Development        |
 
 > Want to contribute or explore more? **DM for full access and we’ll get you onboard!** 🚀
-
----
-
-## 🎬 Walkthrough
-
-Explore BhasaLink through the walkthrough youtube video: [Link to be added]
 
 ---
 
