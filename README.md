@@ -69,7 +69,7 @@ Then open `http://127.0.0.1:5000` in your browser.
 
 ## 🎬 Walkthrough
 
-Explore BhasaLink through the walkthrough youtube video: [Link to be added]
+[![Explore BhasaLink through the walkthrough youtube video:](https://img.youtube.com/vi/CQR0fR5rgO0/maxresdefault.jpg)](https://www.youtube.com/watch?v=CQR0fR5rgO0)
 
 ---
 
