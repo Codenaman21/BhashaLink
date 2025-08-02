@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Bhashalink</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #0f1f1f;
+      color: #ffffff;
+    }
+
+    header {
+      background-color: #00796b;
+      padding: 10px 20px;
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .container {
+      display: flex;
+      height: calc(100vh - 60px);
+    }
+
+    .sidebar {
+      width: 20%;
+      background-color: #00332f;
+      padding: 15px;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .sidebar h3 {
+      margin-top: 0;
+      font-size: 18px;
+      border-bottom: 1px solid #444;
+      padding-bottom: 5px;
+    }
+
+    .sidebar button {
+      background-color: #004d40;
+      border: none;
+      padding: 10px;
+      color: white;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+
+    .main {
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 10px;
+    }
+
+    #camera {
+      background-color: black;
+      flex-grow: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #camera img {
+      max-width: 100%;
+      height: auto;
+    }
+
+    .bottom-bar {
+      background-color: #004d40;
+      padding: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .bottom-bar p {
+      margin: 0;
+      font-size: 18px;
+    }
+
+    .bottom-bar button {
+      background-color: #009688;
+      border: none;
+      padding: 8px 16px;
+      font-size: 14px;
+      color: white;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .image-panel {
+      width: 20%;
+      background-color: #00332f;
+      padding: 15px;
+      box-sizing: border-box;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .image-panel img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 10px;
+    }
+  </style>
+</head>
+
+<body>
+  <header>Bhashalink</header>
+  <div class="container">
+    <div class="sidebar">
+      <div>
+        <h3>Past Predictions</h3>
+        <div id="history">
+          {% for item in history %}
+          <p>{{ item }}</p>
+          {% endfor %}
+        </div>
+      </div>
+      <button onclick="clearHistory()">Clear History</button>
+    </div>
+
+    <div class="main">
+      <div id="camera">
+        <img src="{{ url_for('predict_frame') }}" alt="Camera View">
+      </div>
+      <div class="bottom-bar">
+        <p id="current_prediction">Predictions: {{ prediction }}</p>
+        <button onclick="clearPrediction()">Clear</button>
+      </div>
+    </div>
+
+    <div class="image-panel">
+      <img src="{{ url_for('static', filename='images/signstpw.png') }}" alt="sign Icon">
+    </div>
+  </div>
+
+  <script>
+    function clearPrediction() {
+      fetch('/clear_prediction', { method: 'POST' })
+        .then(() => document.getElementById('current_prediction').textContent = 'Predictions: ');
+    }
+    function fetchPrediction() {
+      fetch('/get_text')
+        .then(response => response.json())
+        .then(data => {
+          document.getElementById('prediction-text').innerText = data.expression || '';
+        });
+    }
+
+    setInterval(fetchPrediction, 1000); 
+
+    function clearHistory() {
+      fetch('/clear_history', { method: 'POST' })
+        .then(() => document.getElementById('history').innerHTML = '');
+    }
+
+    window.addEventListener('beforeunload', function () {
+        navigator.sendBeacon('/stop_camera'); 
+    });
+  </script>
+</body>
+
+</html>
